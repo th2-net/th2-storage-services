@@ -6,4 +6,4 @@ RUN gradle clean build dockerPrepare -Prelease_version=${Prelease_version}
 FROM adoptopenjdk/openjdk11:alpine
 WORKDIR /home
 COPY --from=build /home/gradle/build/docker .
-ENTRYPOINT ["/home/service/bin/service", "run", "com.exactpro.th2.storageservices.Application"]
+ENTRYPOINT ["java", "-jar", "/home/main/layers/application.jar"]

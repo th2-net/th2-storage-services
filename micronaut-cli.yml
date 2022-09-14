@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: com.exactpro.th2
+defaultPackage: com.exactpro.th2.storageservices
 testFramework: junit
 sourceLanguage: java
 buildTool: gradle

@@ -40,7 +40,7 @@ dependencies {
 
 
 application {
-    mainClass.set("com.exactpro.th2.Application")
+    mainClass.set("com.exactpro.th2.storageservices.Application")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
