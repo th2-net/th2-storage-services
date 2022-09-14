@@ -14,9 +14,6 @@ import org.spockframework.mock.MockImplementation;
 class BookServiceTest {
 
     @Inject
-    BookService bookService;
-
-    @Inject
     EmbeddedApplication<?> application;
 
     @Test
