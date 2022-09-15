@@ -8,7 +8,7 @@ ext {
 }
 
 
-version = "0.1"
+version = release_version
 group = "com.exactpro.th2"
 
 repositories {
