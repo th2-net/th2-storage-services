@@ -37,8 +37,6 @@ dependencies {
         exclude group: "org.codehaus.groovy", module: "groovy-all"
     }
 }
-// Copyrights
-//
 
 application {
     mainClass.set("com.exactpro.th2.storageservices.Application")
