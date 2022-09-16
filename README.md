@@ -29,4 +29,4 @@ cassandra:
 
 ```
 
-If we want to change default logging configuration, `logback.xml` should be provided in same folder.
+`log4j.xml` should also be provided in same folder.

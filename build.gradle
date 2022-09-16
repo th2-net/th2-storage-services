@@ -16,26 +16,37 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor("io.micronaut:micronaut-http-validation")
-    annotationProcessor("io.micronaut.openapi:micronaut-openapi:4.4.3")
+    annotationProcessor "io.micronaut:micronaut-http-validation"
+    annotationProcessor "io.micronaut.openapi:micronaut-openapi:4.4.3"
+    annotationProcessor "com.datastax.oss:java-driver-mapper-processor:${driver_version}"
+
+
 
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("jakarta.annotation:jakarta.annotation-api")
-    runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
 
-    annotationProcessor "com.datastax.oss:java-driver-mapper-processor:${driver_version}"
+    testImplementation "io.micronaut.test:micronaut-test-spock"
+    testImplementation ("org.spockframework:spock-core") {
+        exclude group: "org.codehaus.groovy", module: "groovy-all"
+    }
 
     implementation "com.datastax.oss:java-driver-core:${driver_version}"
     implementation "com.datastax.oss:java-driver-mapper-processor:${driver_version}"
     implementation "com.datastax.oss:java-driver-mapper-runtime:${driver_version}"
+
     implementation("io.swagger.core.v3:swagger-annotations")
 
-    testImplementation "io.micronaut.test:micronaut-test-spock"
-    testImplementation("org.spockframework:spock-core") {
-        exclude group: "org.codehaus.groovy", module: "groovy-all"
+    implementation ("org.slf4j:slf4j-log4j12") {
+        version {
+            strictly '1.7.36'
+        }
     }
+}
+
+configurations.all {
+    exclude group: "ch.qos.logback", module: "logback-classic"
 }
 
 application {
