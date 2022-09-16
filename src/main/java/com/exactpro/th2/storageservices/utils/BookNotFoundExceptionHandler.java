@@ -24,11 +24,11 @@ import jakarta.inject.Singleton;
 @Produces
 @Singleton
 @Requires(classes = {HttpStatusException.class, ExceptionHandler.class})
-public class BookNotFoundExceptionHandler implements ExceptionHandler<BookNotFoundException, HttpResponse> {
+public class BookNotFoundExceptionHandler implements ExceptionHandler<BookEndpointException, HttpResponse> {
 
     @Override
-    public HttpResponse handle(HttpRequest request, BookNotFoundException exception) {
-        return HttpResponse.notFound().body(new CustomNotFoundBody("PROPRIETARY_ERROR_CODE", exception.getMessage()));
+    public HttpResponse handle(HttpRequest request, BookEndpointException exception) {
+        return HttpResponse.notFound().body(new CustomNotFoundBody(exception.getErrorCode(), exception.getMessage()));
     }
 
     private static class CustomNotFoundBody {

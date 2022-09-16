@@ -19,7 +19,7 @@ import com.exactpro.th2.storageservices.dao.CassandraDataMapper;
 import com.exactpro.th2.storageservices.dao.CassandraDataMapperBuilder;
 import com.exactpro.th2.storageservices.model.BookEntity;
 import com.exactpro.th2.storageservices.model.BookResponse;
-import com.exactpro.th2.storageservices.utils.BookNotFoundException;
+import com.exactpro.th2.storageservices.utils.BookEndpointException;
 import com.exactpro.th2.storageservices.utils.CassandraConnection;
 import io.micronaut.context.annotation.Bean;
 import jakarta.inject.Inject;
@@ -53,12 +53,12 @@ public class BookService {
             BookEntity entity = operator.get(id, readAttrs);
 
             if (entity == null) {
-                throw new BookNotFoundException("Could not find book with `id` " + id);
+                throw new BookEndpointException(BookEndpointException.BOOK_NOT_FOUND, "Could not find book with `id` " + id);
             }
 
             return new BookResponse(entity);
         } catch (Exception e) {
-            throw new BookNotFoundException(e.getMessage());
+            throw new BookEndpointException(BookEndpointException.KEYSPACE_NOT_FOUND, e.getMessage());
         }
     }
 }
