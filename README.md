@@ -29,4 +29,4 @@ cassandra:
 
 ```
 
-`log4j.xml` should also be provided in same folder.
+`log4j2.properties` should also be provided in same folder.

@@ -5,8 +5,11 @@ plugins {
 
 ext {
     driver_version = '4.14.1'
+    logging_version = '2.19.0'
 }
 
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 version = release_version
 group = "com.exactpro.th2"
@@ -22,6 +25,8 @@ dependencies {
 
 
 
+    implementation("io.swagger.core.v3:swagger-annotations")
+
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("jakarta.annotation:jakarta.annotation-api")
@@ -36,13 +41,9 @@ dependencies {
     implementation "com.datastax.oss:java-driver-mapper-processor:${driver_version}"
     implementation "com.datastax.oss:java-driver-mapper-runtime:${driver_version}"
 
-    implementation("io.swagger.core.v3:swagger-annotations")
-
-    implementation ("org.slf4j:slf4j-log4j12") {
-        version {
-            strictly '1.7.36'
-        }
-    }
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${logging_version}"
+    implementation "org.apache.logging.log4j:log4j-1.2-api:${logging_version}"
+    implementation "org.apache.logging.log4j:log4j-api:${logging_version}"
 }
 
 configurations.all {
