@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@Controller("/books")
+@Controller
 @Produces(MediaType.APPLICATION_JSON)
 public class BookController {
 
@@ -34,10 +34,8 @@ public class BookController {
     @Inject
     private BookService bookService;
 
-    @Get("/{keyspace}/{id}")
+    @Get("/{keyspace}/books/{id}")
     @Operation(summary = "Returns information from cradle")
-//    @ApiResponse(content = @Content(mediaType = "text/plain", schema = @Schema(type="book")))
-//    @ApiResponse(responseCode = "404", description = "Could not find keyspace/Could not find book with id")
     public BookResponse getBook (String keyspace, String id) {
         return bookService.getBook(keyspace, id);
     }
