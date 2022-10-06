@@ -13,6 +13,7 @@
 
 package com.exactpro.th2.storageservices.utils;
 
+import com.exactpro.th2.storageservices.model.CustomNotFoundResponse;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
@@ -28,24 +29,7 @@ public class BookNotFoundExceptionHandler implements ExceptionHandler<BookEndpoi
 
     @Override
     public HttpResponse handle(HttpRequest request, BookEndpointException exception) {
-        return HttpResponse.notFound().body(new CustomNotFoundBody(exception.getErrorCode(), exception.getMessage()));
+        return HttpResponse.notFound().body(new CustomNotFoundResponse(exception.getErrorCode(), exception.getMessage()));
     }
 
-    private static class CustomNotFoundBody {
-        private final String errorCode;
-        private final String message;
-
-        public CustomNotFoundBody(String errorCode, String message) {
-            this.errorCode = errorCode;
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public String getErrorCode() {
-            return errorCode;
-        }
-    }
 }

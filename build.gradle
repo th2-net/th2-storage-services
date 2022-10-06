@@ -46,6 +46,11 @@ dependencies {
     implementation "org.apache.logging.log4j:log4j-api:${logging_version}"
 }
 
+tasks.withType(JavaCompile) {
+    options.fork = true
+    options.forkOptions.jvmArgs << '-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop'
+}
+
 configurations.all {
     exclude group: "ch.qos.logback", module: "logback-classic"
 }

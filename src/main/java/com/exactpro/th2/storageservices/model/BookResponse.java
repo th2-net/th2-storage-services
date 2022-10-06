@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.Instant;
 
-@Schema(name="book")
+@Schema(name="bookResponse", title = "bookResponse", description = "Book response class")
 public class BookResponse {
 
     private final String id;

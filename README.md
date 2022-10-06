@@ -30,3 +30,5 @@ cassandra:
 ```
 
 `log4j2.properties` should also be provided in same folder.
+
+Project exposes swagger ui endpoint at `/api/swagger/views/swagger-ui?contextPath=/api`. Schemas and controller endpoints can be viewed there.

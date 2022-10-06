@@ -14,12 +14,18 @@
 package com.exactpro.th2.storageservices.controller;
 
 import com.exactpro.th2.storageservices.model.BookResponse;
+import com.exactpro.th2.storageservices.model.CustomNotFoundResponse;
 import com.exactpro.th2.storageservices.service.BookService;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +41,23 @@ public class BookController {
     private BookService bookService;
 
     @Get("/{keyspace}/books/{id}")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = BookResponse.class))
+                            }),
+                    @ApiResponse(
+                            responseCode = "404",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = CustomNotFoundResponse.class))
+                            })
+            })
     @Operation(summary = "Returns information from cradle")
     public BookResponse getBook (String keyspace, String id) {
         return bookService.getBook(keyspace, id);
