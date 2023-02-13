@@ -21,6 +21,7 @@ import com.exactpro.th2.storageservices.model.BookEntity;
 import com.exactpro.th2.storageservices.model.BookResponse;
 import com.exactpro.th2.storageservices.utils.BookEndpointException;
 import com.exactpro.th2.storageservices.utils.CassandraConnection;
+import com.exactpro.th2.storageservices.utils.StorageServiceErrorCode;
 import io.micronaut.context.annotation.Bean;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
@@ -46,19 +47,25 @@ public class BookService {
     }
 
     public BookResponse getBook (String keyspace, String id) {
+        BookOperator operator;
         try {
-            var operator = operators.computeIfAbsent(keyspace, (key) -> cassandraDataMapper.cradleBookOperator(keyspace, BookEntity.TABLE_NAME));
+            operator = operators.computeIfAbsent(keyspace, (key) -> cassandraDataMapper.cradleBookOperator(keyspace, BookEntity.TABLE_NAME));
+        } catch (Exception e) {
+            throw new BookEndpointException(StorageServiceErrorCode.KEYSPACE_NOT_FOUND, e.getMessage());
+        }
 
-
-            BookEntity entity = operator.get(id, readAttrs);
+        BookEntity entity;
+        try {
+            entity = operator.get(id, readAttrs);
 
             if (entity == null) {
-                throw new BookEndpointException(BookEndpointException.BOOK_NOT_FOUND, "Could not find book with `id` " + id);
+                throw new BookEndpointException(StorageServiceErrorCode.BOOK_NOT_FOUND, "Could not find book with `id` " + id);
             }
-
-            return new BookResponse(entity);
         } catch (Exception e) {
-            throw new BookEndpointException(BookEndpointException.KEYSPACE_NOT_FOUND, e.getMessage());
+            throw new BookEndpointException(StorageServiceErrorCode.BOOK_NOT_FOUND, e.getMessage());
         }
+
+
+        return new BookResponse(entity);
     }
 }

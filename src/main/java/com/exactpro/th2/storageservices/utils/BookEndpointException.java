@@ -15,17 +15,14 @@ package com.exactpro.th2.storageservices.utils;
 
 public class BookEndpointException extends RuntimeException{
 
-    public static final String BOOK_NOT_FOUND = "BOOK_NOT_FOUND";
-    public static final String KEYSPACE_NOT_FOUND = "KEYSPACE_NOT_FOUND";
+    private final StorageServiceErrorCode storageServiceErrorCode;
 
-    private final String errorCode;
-
-    public BookEndpointException(String errorCode, String message) {
+    public BookEndpointException(StorageServiceErrorCode storageServiceErrorCode, String message) {
         super(message);
-        this.errorCode = errorCode;
+        this.storageServiceErrorCode = storageServiceErrorCode;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public StorageServiceErrorCode getErrorCode() {
+        return storageServiceErrorCode;
     }
 }
