@@ -25,10 +25,10 @@ import jakarta.inject.Singleton;
 @Produces
 @Singleton
 @Requires(classes = {HttpStatusException.class, ExceptionHandler.class})
-public class BookEndpointExceptionHandler implements ExceptionHandler<BookEndpointException, HttpResponse> {
+public class CustomEndpointExceptionHandler implements ExceptionHandler<CustomEndpointException, HttpResponse> {
 
     @Override
-    public HttpResponse handle(HttpRequest request, BookEndpointException exception) {
+    public HttpResponse handle(HttpRequest request, CustomEndpointException exception) {
         return HttpResponse.notFound().body(new CustomNotFoundResponse(exception.getErrorCode().name(), exception.getMessage()));
     }
 

@@ -1,7 +1,5 @@
 package com.exactpro.th2.storageservices.model;
 
-import com.exactpro.th2.storageservices.utils.BookEndpointException;
-import com.exactpro.th2.storageservices.utils.StorageServiceErrorCode;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(name = "notFoundResponse", title = "notFoundResponse", description = "Error response class, with proprietary error codes")

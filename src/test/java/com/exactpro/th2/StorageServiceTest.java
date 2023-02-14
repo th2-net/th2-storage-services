@@ -19,10 +19,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import jakarta.inject.Inject;
-import org.spockframework.mock.MockImplementation;
 
 @MicronautTest
-class BookServiceTest {
+class StorageServiceTest {
 
     @Inject
     EmbeddedApplication<?> application;

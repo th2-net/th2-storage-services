@@ -13,11 +13,11 @@
 
 package com.exactpro.th2.storageservices.utils;
 
-public class BookEndpointException extends RuntimeException{
+public class CustomEndpointException extends RuntimeException{
 
     private final StorageServiceErrorCode storageServiceErrorCode;
 
-    public BookEndpointException(StorageServiceErrorCode storageServiceErrorCode, String message) {
+    public CustomEndpointException(StorageServiceErrorCode storageServiceErrorCode, String message) {
         super(message);
         this.storageServiceErrorCode = storageServiceErrorCode;
     }
