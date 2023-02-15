@@ -56,7 +56,7 @@ public class StorageService {
         try {
             Optional<KeyspaceMetadata> keyspaceMeta = cassandraConnection.getSession().getMetadata().getKeyspace(keyspaceName);
             if (keyspaceMeta.isPresent()) {
-                return new KeyspaceResponse(keyspaceMeta.get());
+                return new KeyspaceResponse(keyspaceMeta.get().getName().toString());
             }
         } catch (Exception e) {
             throw new CustomEndpointException(StorageServiceErrorCode.KEYSPACE_NOT_FOUND, e.getMessage());

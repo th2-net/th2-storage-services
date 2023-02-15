@@ -13,27 +13,18 @@
 
 package com.exactpro.th2.storageservices.model;
 
-import com.datastax.oss.driver.api.core.CqlIdentifier;
-import com.datastax.oss.driver.api.core.metadata.schema.KeyspaceMetadata;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(name = "keyspaceResponse", title = "keyspaceResponse", description = "Keyspace response class")
 public class KeyspaceResponse {
 
-    private final CqlIdentifier name;
+    private final String name;
 
-    private final boolean durableWrites;
-
-    public KeyspaceResponse(KeyspaceMetadata metadata) {
-        this.name = metadata.getName();
-        this.durableWrites = metadata.isDurableWrites();
+    public KeyspaceResponse(String name) {
+        this.name = name;
     }
 
-    public CqlIdentifier getName() {
+    public String getName() {
         return name;
-    }
-
-    public boolean isDurableWrites() {
-        return durableWrites;
     }
 }
