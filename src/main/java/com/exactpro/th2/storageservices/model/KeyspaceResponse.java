@@ -11,24 +11,20 @@
  * limitations under the License.
  */
 
-package com.exactpro.th2;
+package com.exactpro.th2.storageservices.model;
 
-import io.micronaut.runtime.EmbeddedApplication;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import jakarta.inject.Inject;
-import org.spockframework.mock.MockImplementation;
+@Schema(name = "keyspaceResponse", title = "keyspaceResponse", description = "Keyspace response class")
+public class KeyspaceResponse {
 
-@MicronautTest
-class BookServiceTest {
+    private final String name;
 
-    @Inject
-    EmbeddedApplication<?> application;
+    public KeyspaceResponse(String name) {
+        this.name = name;
+    }
 
-    @Test
-    void testItWorks() {
-        Assertions.assertTrue(application.isRunning());
+    public String getName() {
+        return name;
     }
 }

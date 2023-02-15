@@ -11,18 +11,23 @@
  * limitations under the License.
  */
 
-package com.exactpro.th2.storageservices.utils;
+package com.exactpro.th2;
 
-public class BookEndpointException extends RuntimeException{
+import io.micronaut.runtime.EmbeddedApplication;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
-    private final StorageServiceErrorCode storageServiceErrorCode;
+import jakarta.inject.Inject;
 
-    public BookEndpointException(StorageServiceErrorCode storageServiceErrorCode, String message) {
-        super(message);
-        this.storageServiceErrorCode = storageServiceErrorCode;
-    }
+@MicronautTest
+class StorageServiceTest {
 
-    public StorageServiceErrorCode getErrorCode() {
-        return storageServiceErrorCode;
+    @Inject
+    EmbeddedApplication<?> application;
+
+    @Test
+    void testItWorks() {
+        Assertions.assertTrue(application.isRunning());
     }
 }
