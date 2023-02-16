@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @OpenAPIDefinition(
         info = @Info(
                 title = "TH2 Cradle Services",
-                version = "0.1.0",
+                version = "1.0.0",
                 description = "Informational REST API for cradle management data"
         )
 )
