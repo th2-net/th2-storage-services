@@ -64,7 +64,7 @@ public class StorageController {
         return storageService.getBook(keyspace, id);
     }
 
-    @Get("/keyspaces/{keyspace}")
+    @Get("/{keyspace}")
     @ApiResponses(
             value = {
                     @ApiResponse(
