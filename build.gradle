@@ -1,0 +1,77 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.5.3"
+}
+
+ext {
+    driver_version = '4.14.1'
+    logging_version = '2.19.0'
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+version = release_version
+group = "com.exactpro.th2"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor "io.micronaut:micronaut-http-validation"
+    annotationProcessor "io.micronaut.openapi:micronaut-openapi:4.4.3"
+    annotationProcessor "com.datastax.oss:java-driver-mapper-processor:${driver_version}"
+
+
+
+    implementation("io.swagger.core.v3:swagger-annotations")
+
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind:3.8.4")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation("io.micronaut:micronaut-validation")
+
+    testImplementation "io.micronaut.test:micronaut-test-spock"
+    testImplementation ("org.spockframework:spock-core") {
+        exclude group: "org.codehaus.groovy", module: "groovy-all"
+    }
+
+    implementation "com.datastax.oss:java-driver-core:${driver_version}"
+    implementation "com.datastax.oss:java-driver-mapper-processor:${driver_version}"
+    implementation "com.datastax.oss:java-driver-mapper-runtime:${driver_version}"
+
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${logging_version}"
+    implementation "org.apache.logging.log4j:log4j-1.2-api:${logging_version}"
+    implementation "org.apache.logging.log4j:log4j-api:${logging_version}"
+}
+
+tasks.withType(JavaCompile) {
+    options.fork = true
+    options.forkOptions.jvmArgs << '-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop'
+}
+
+configurations.all {
+    exclude group: "ch.qos.logback", module: "logback-classic"
+}
+
+application {
+    mainClass.set("com.exactpro.th2.storageservices.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.exactpro.th2.*")
+    }
+}
+
+
+
