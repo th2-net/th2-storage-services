@@ -59,30 +59,26 @@ public class StorageService {
                 return new KeyspaceResponse(keyspaceMeta.get().getName().toString());
             }
         } catch (Exception e) {
-            throw new CustomEndpointException(StorageServiceErrorCode.KEYSPACE_NOT_FOUND, e.getMessage());
+            logger.error("Exception checking keyspace", e);
+            throw new CustomEndpointException(StorageServiceErrorCode.UNKNOWN_ERROR, "Error checking keyspace");
         }
-        throw new CustomEndpointException(StorageServiceErrorCode.KEYSPACE_NOT_FOUND, "Could not find Keyspace with name " + keyspaceName);
+        throw new CustomEndpointException(StorageServiceErrorCode.KEYSPACE_NOT_FOUND, "Keyspace not found");
     }
 
     public BookResponse getBook(String keyspace, String id) {
-        BookOperator operator;
-        try {
-            operator = operators.computeIfAbsent(keyspace, (key) -> cassandraDataMapper.cradleBookOperator(keyspace, BookEntity.TABLE_NAME));
-        } catch (Exception e) {
-            throw new CustomEndpointException(StorageServiceErrorCode.KEYSPACE_NOT_FOUND, e.getMessage());
-        }
-
         BookEntity entity;
         try {
+            BookOperator operator;
+            operator = operators.computeIfAbsent(keyspace, (key) -> cassandraDataMapper.cradleBookOperator(keyspace, BookEntity.TABLE_NAME));
             entity = operator.get(id, readAttrs);
-
-            if (entity == null) {
-                throw new CustomEndpointException(StorageServiceErrorCode.BOOK_NOT_FOUND, "Could not find book with `id` " + id);
-            }
         } catch (Exception e) {
-            throw new CustomEndpointException(StorageServiceErrorCode.BOOK_NOT_FOUND, e.getMessage());
+            logger.error("Exception checking book", e);
+            throw new CustomEndpointException(StorageServiceErrorCode.UNKNOWN_ERROR, "Error checking book");
         }
 
+        if (entity == null) {
+            throw new CustomEndpointException(StorageServiceErrorCode.BOOK_NOT_FOUND, "Could not find book with `id` " + id);
+        }
 
         return new BookResponse(entity);
     }
