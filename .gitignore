@@ -14,6 +14,3 @@ out/
 .classpath
 .factorypath
 src/main/resources/
-gradlew.bat
-gradlew
-gradle/
