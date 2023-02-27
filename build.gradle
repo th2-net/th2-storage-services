@@ -1,6 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("io.micronaut.application") version "3.5.3"
+    id("io.micronaut.application") version "3.7.2"
+    id "org.owasp.dependencycheck" version "8.1.0"
 }
 
 ext {
@@ -28,7 +29,7 @@ dependencies {
     implementation("io.swagger.core.v3:swagger-annotations")
 
     implementation("io.micronaut:micronaut-http-client")
-    implementation("io.micronaut:micronaut-jackson-databind:3.8.4")
+    implementation("io.micronaut:micronaut-jackson-databind:3.8.5")
     implementation("jakarta.annotation:jakarta.annotation-api")
     implementation("io.micronaut:micronaut-validation")
 
@@ -44,6 +45,17 @@ dependencies {
     implementation "org.apache.logging.log4j:log4j-slf4j-impl:${logging_version}"
     implementation "org.apache.logging.log4j:log4j-1.2-api:${logging_version}"
     implementation "org.apache.logging.log4j:log4j-api:${logging_version}"
+}
+
+dependencyCheck {
+    formats=['SARIF', 'JSON', 'HTML']
+    failBuildOnCVSS=5
+
+    analyzers {
+        assemblyEnabled = false
+        nugetconfEnabled = false
+        nodeEnabled = false
+    }
 }
 
 tasks.withType(JavaCompile) {
